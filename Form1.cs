@@ -85,13 +85,16 @@ namespace SYBD_curs
                             if (jobTitleName == "Начальник")
                             {
                             // Переход на Form3 для начальника
-                            Form2 editForm = new Form2();
+                            Form3 editForm = new Form3();
                             this.Hide();
                             editForm.ShowDialog();
                               // Скрываем текущую форму
                             }
                         }
-                    }
+                        this.Show();
+                        txtLogin.Clear();
+                        txtPassword.Clear();
+                }
                     else
                     {
                         // Неверные данные
