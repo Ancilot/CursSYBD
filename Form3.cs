@@ -63,19 +63,40 @@ namespace SYBD_curs
             // Заполняем набор данных данными, которые вернул запрос
             da3.Fill(datasetmain3, "\"graphik_smen\"");
 
-            NpgsqlCommand command4 = new NpgsqlCommand("SELECT * FROM curse.\"Employee_License\"", conn);
+            NpgsqlCommand command4 = new NpgsqlCommand(@"SELECT 
+             el.""ID"",
+             e.""Surname"" || ' ' || e.""Name"" || ' ' || e.""Patronymic"" AS ""Employee"",
+             l.""Name"" AS ""License""
+             FROM curse.""Employee_License"" el
+             JOIN curse.""Employee"" e ON el.""ID_Employee"" = e.""ID""
+             JOIN curse.""License"" l ON el.""ID_License"" = l.""ID"";", conn);
             // Новый адаптер нужен для заполнения набора данных
             NpgsqlDataAdapter da4 = new NpgsqlDataAdapter(command4);
             // Заполняем набор данных данными, которые вернул запрос
             da4.Fill(datasetmain4, "\"Employee_License\"");
 
-            NpgsqlCommand command5 = new NpgsqlCommand("SELECT * FROM curse.\"Employee_graphik\"", conn);
+            NpgsqlCommand command5 = new NpgsqlCommand(@"SELECT 
+             eg.""ID"",
+             e.""Surname"" || ' ' || e.""Name"" || ' ' || e.""Patronymic"" AS ""Employee"",
+             g.""ID"" AS ""Graphik"",
+             g.""Type_smena"" AS ""Type_smena""
+             FROM curse.""Employee_graphik"" eg
+             JOIN curse.""Employee"" e ON eg.""ID_Employee"" = e.""ID""
+             JOIN curse.""graphik_smen"" g ON eg.""ID_graphik"" = g.""ID"";", conn);
             // Новый адаптер нужен для заполнения набора данных
             NpgsqlDataAdapter da5 = new NpgsqlDataAdapter(command5);
             // Заполняем набор данных данными, которые вернул запрос
             da5.Fill(datasetmain5, "\"Employee_graphik\"");
 
-            NpgsqlCommand command6 = new NpgsqlCommand("SELECT * FROM curse.\"Contract_graphik\"", conn);
+            NpgsqlCommand command6 = new NpgsqlCommand(@"SELECT 
+             cg.""ID"",
+             c.""ID"" AS ""Contract"",
+             c.""Start_date"" || '_' || c.""Finish_date"" AS ""Date_Contract"",
+             g.""ID"" AS ""Graphik"",
+             g.""Date_time_start"" || '_' || g.""Date_time_finish"" AS ""Date_graphik""
+             FROM curse.""Contract_graphik"" cg
+             JOIN curse.""Contract"" c ON cg.""ID_Contract"" = c.""ID""
+             JOIN curse.""graphik_smen"" g ON cg.""ID_graphik"" = g.""ID"";", conn);
             // Новый адаптер нужен для заполнения набора данных
             NpgsqlDataAdapter da6 = new NpgsqlDataAdapter(command6);
             // Заполняем набор данных данными, которые вернул запрос

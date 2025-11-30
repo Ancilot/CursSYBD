@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace SYBD_curs
 {
@@ -87,7 +88,15 @@ namespace SYBD_curs
             // Заполняем набор данных данными, которые вернул запрос
             da6.Fill(datasetmain6, "\"Services\"");
 
-            NpgsqlCommand command7 = new NpgsqlCommand("SELECT * FROM curse.\"Services_Contract\"", conn);
+            NpgsqlCommand command7 = new NpgsqlCommand(@"SELECT 
+             sc.""ID"",
+             c.""ID"" AS ""Contract"",
+             obj.""Name"" AS ""Object"",
+             s.""Name"" AS ""Type_services""
+             FROM curse.""Services_Contract"" sc
+             JOIN curse.""Contract"" c ON sc.""ID_Contract"" = c.""ID""
+             JOIN curse.""Object"" obj ON c.""Object"" = obj.""ID""
+             JOIN curse.""Services"" s ON sc.""ID_Services"" = s.""ID"";", conn);
             // Новый адаптер нужен для заполнения набора данных
             NpgsqlDataAdapter da7 = new NpgsqlDataAdapter(command7);
             // Заполняем набор данных данными, которые вернул запрос
