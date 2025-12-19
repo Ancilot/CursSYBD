@@ -81,7 +81,8 @@ namespace SYBD_curs
 
         private void button6_Click(object sender, EventArgs e)
         {
-
+            Form5 editForm = new Form5();
+            editForm.ShowDialog();
         }
 
         private void label5_Click(object sender, EventArgs e)
