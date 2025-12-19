@@ -44,6 +44,8 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -174,7 +176,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(474, 349);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(188, 20);
+            this.textBox1.Size = new System.Drawing.Size(250, 20);
             this.textBox1.TabIndex = 17;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -183,14 +185,14 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(471, 333);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(148, 13);
+            this.label6.Size = new System.Drawing.Size(253, 13);
             this.label6.TabIndex = 18;
-            this.label6.Text = "Поиск сотрудника по ФИО:";
+            this.label6.Text = "Поиск сотрудника по фамилии/имени/отчеству:";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(668, 349);
+            this.button7.Location = new System.Drawing.Point(649, 375);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 19;
@@ -198,11 +200,32 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(449, 471);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 20;
+            this.button8.Text = "Заменить";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(446, 455);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(88, 13);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "Заменить фото:";
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(760, 522);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox1);
@@ -247,5 +270,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Label label7;
     }
 }

@@ -13,6 +13,8 @@ namespace SYBD_curs
             InitializeComponent();
             string connString = "Host=localhost; Database=Ancilot; User Id=postgres; Password=1235;";
             conn = new NpgsqlConnection(connString);
+            txtLogin.Text = "smirnov_av  ";
+            txtPassword.Text = "SecurePass1235 ";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -27,7 +29,7 @@ namespace SYBD_curs
         // Обработчик события для кнопки входа
         private void btnLogin_Click_1(object sender, EventArgs e)
         {
-
+            
             string login = txtLogin.Text.Trim();
             string password = txtPassword.Text.Trim();
 

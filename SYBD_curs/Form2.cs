@@ -88,5 +88,46 @@ namespace SYBD_curs
         {
 
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string searchText = textBox1.Text.Trim();
+
+            try
+            {
+                DataSet datasetSearch = new DataSet();
+                conn.Open();
+                datasetSearch.Clear();
+
+                // Используем функцию поиска
+                NpgsqlCommand command = new NpgsqlCommand(
+                    "SELECT * FROM curse.search_contract_by_id(@search_text)",
+                    conn);
+
+                command.Parameters.AddWithValue("@search_text",
+                    string.IsNullOrEmpty(searchText) ? (object)DBNull.Value : searchText);
+
+                NpgsqlDataAdapter da = new NpgsqlDataAdapter(command);
+                da.Fill(datasetSearch, "SearchResults");
+
+                dataGridView.DataSource = datasetSearch.Tables["SearchResults"];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при поиске: " + ex.Message,
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Form4 editForm = new Form4();
+            editForm.ShowDialog();
+        }
     }
 }

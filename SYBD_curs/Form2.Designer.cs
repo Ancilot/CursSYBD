@@ -130,6 +130,7 @@
             this.button5.TabIndex = 11;
             this.button5.Text = "Открыть";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -153,28 +154,29 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(532, 333);
+            this.label5.Location = new System.Drawing.Point(526, 333);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(97, 13);
+            this.label5.Size = new System.Drawing.Size(147, 13);
             this.label5.TabIndex = 14;
-            this.label5.Text = "Поиск по номеру:";
+            this.label5.Text = "Поиск договора по номеру:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(529, 349);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(144, 20);
             this.textBox1.TabIndex = 15;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(635, 347);
+            this.button7.Location = new System.Drawing.Point(678, 346);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(75, 23);
             this.button7.TabIndex = 16;
             this.button7.Text = "Найти";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // Form2
             // 
