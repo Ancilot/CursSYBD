@@ -130,5 +130,11 @@ namespace SYBD_curs
             Form4 editForm = new Form4();
             editForm.ShowDialog();
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Form12 editForm = new Form12();
+            editForm.ShowDialog();
+        }
     }
 }
