@@ -133,7 +133,22 @@ namespace SYBD_curs
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Form12 editForm = new Form12();
+            if (dataGridView.CurrentRow == null ||
+             dataGridView.CurrentRow.Cells["Number_contract"].Value == null ||
+             dataGridView.CurrentRow.Cells["Number_contract"].Value == DBNull.Value)
+            {
+                MessageBox.Show(
+                    "Выберите договор для просмотра напоминаний",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            DataGridViewRow row = dataGridView.SelectedRows[0];
+
+            int id = Convert.ToInt32(row.Cells["Number_contract"].Value);
+            Form12 editForm = new Form12(id);
             editForm.ShowDialog();
         }
     }
