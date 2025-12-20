@@ -151,5 +151,32 @@ namespace SYBD_curs
             Form12 editForm = new Form12(id);
             editForm.ShowDialog();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form15 editForm = new Form15();
+            editForm.ShowDialog();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.CurrentRow == null ||
+              dataGridView.CurrentRow.Cells["Number_contract"].Value == null ||
+              dataGridView.CurrentRow.Cells["Number_contract"].Value == DBNull.Value)
+            {
+                MessageBox.Show(
+                    "Выберите договор для просмотра процесса выполнения",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            DataGridViewRow row = dataGridView.SelectedRows[0];
+
+            int id = Convert.ToInt32(row.Cells["Number_contract"].Value);
+            Form16 editForm = new Form16(id);
+            editForm.ShowDialog();
+        }
     }
 }
