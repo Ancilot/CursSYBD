@@ -40,7 +40,7 @@ namespace SYBD_curs
 
             using (var command = new NpgsqlCommand(
                 "INSERT INTO curse.\"Addres\" (\"Home\", \"Street\", \"City\", \"Region\", \"Country\") " +
-                "VALUES (@home, @street, @city, @region, @country)", conn))
+                "VALUES (@home, @street, @city, @region, @country) RETURNING \"ID\"", conn))
             {
                 command.Parameters.AddWithValue("home", Home);
                 command.Parameters.AddWithValue("street", Street);
@@ -50,14 +50,15 @@ namespace SYBD_curs
 
                 try
                 {
-                    command.ExecuteNonQuery();
-
+                    int newAddressId = (int)command.ExecuteScalar();
                     MessageBox.Show(
                         "Адрес успешно добавлен",
                         "Успех",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+                    this.Tag = newAddressId;
+                    this.DialogResult = DialogResult.OK;
                     conn.Close();
                     this.Close(); // закрываем форму после успешного добавления
                 }

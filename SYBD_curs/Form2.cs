@@ -181,7 +181,8 @@ namespace SYBD_curs
 
         private void button11_Click(object sender, EventArgs e)
         {
-
+            Form23 editForm = new Form23();
+            editForm.ShowDialog();
         }
 
         private void button12_Click(object sender, EventArgs e)
