@@ -178,5 +178,16 @@ namespace SYBD_curs
             Form16 editForm = new Form16(id);
             editForm.ShowDialog();
         }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Form20 editForm = new Form20();
+            editForm.ShowDialog();
+        }
     }
 }
