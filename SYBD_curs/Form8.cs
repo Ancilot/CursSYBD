@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -74,7 +75,7 @@ namespace SYBD_curs
             NpgsqlCommand command = new NpgsqlCommand(
               "SELECT " +
               "sc.\"ID\"," +
-              "sc.\"ID_Contract\" AS \"Номер контракта\", " +
+              "sc.\"ID_Contract\" AS \"Номер договора\", " +
               "o.\"Name\" AS \"Название объекта\", " +
               "s.\"Name\" AS \"Название услуги\" " +
               "FROM curse.\"Services_Contract\" sc " +
@@ -115,17 +116,7 @@ namespace SYBD_curs
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-
-            using (Form11 editForm = new Form11())
-            {
-                editForm.ShowDialog();
-            }
-
-            this.Show();
-        }
+ 
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -204,7 +195,26 @@ namespace SYBD_curs
             try
             {
                 conn.Open();
+                using (var checkCmd = new NpgsqlCommand(
+                "SELECT COUNT(*) FROM curse.\"Services_Contract\" WHERE \"ID_Contract\" = @id_contract",
+               conn))
+                {
+                    DataGridViewRow row = dataGridView1.SelectedRows[0];
+                    int id = Convert.ToInt32(row.Cells["Номер договора"].Value);
+                    checkCmd.Parameters.AddWithValue("@id_contract", id);
+                    int count = Convert.ToInt32(checkCmd.ExecuteScalar());
 
+                    if (count == 1)
+                    {
+                        MessageBox.Show(
+                            "Созданный контракт нельзя оставить без услуг",
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        return; // Прерываем удаление
+                    }
+                }
                 NpgsqlCommand cmd = new NpgsqlCommand(
                 "DELETE FROM curse.\"Services_Contract\" WHERE \"ID\" = @id",
                    conn
