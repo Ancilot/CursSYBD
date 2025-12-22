@@ -13,8 +13,8 @@ namespace SYBD_curs
             InitializeComponent();
             string connString = "Host=localhost; Database=Ancilot; User Id=postgres; Password=1235;";
             conn = new NpgsqlConnection(connString);
-            txtLogin.Text = "smirnov_av  ";
-            txtPassword.Text = "SecurePass1235 ";
+            txtLogin.Text = "kuznetsov_do";
+            txtPassword.Text = "securepass";
         }
 
         private void Form1_Load(object sender, EventArgs e)

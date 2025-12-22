@@ -30,18 +30,18 @@ namespace SYBD_curs
             this.Close();
         }
 
-        private void Form3_Load(object sender, EventArgs e)
+        private void emploee()
         {
             // Создадим новый набор данных
             DataSet datasetmain = new DataSet();
-            
+
             // Открываем подключение
             conn.Open();
             // Очищаем набор данных
             datasetmain.Clear();
-           
+
             NpgsqlCommand command = new NpgsqlCommand("SELECT " +
-             "e.\"ID\","+
+             "e.\"ID\"," +
              "e.\"Surname\", " +
              "e.\"Name\", " +
              "e.\"Patronymic\", " +
@@ -51,20 +51,25 @@ namespace SYBD_curs
              "e.\"Education\" " +
              "FROM curse.\"Employee\" e " +
              "JOIN curse.\"Job_title\" jt ON jt.\"ID\" = e.\"Job_title\"", conn);
-           
+
             // Новый адаптер нужен для заполнения набора данных
             NpgsqlDataAdapter da = new NpgsqlDataAdapter(command);
             // Заполняем набор данных данными, которые вернул запрос
             da.Fill(datasetmain, "\"Employee\"");
 
             // Связываем элемент DataGridView1 с набором данных
-            dataGridView1.DataSource = datasetmain;       
+            dataGridView1.DataSource = datasetmain;
 
             dataGridView1.DataMember = "\"Employee\"";
             // Закрываем подключение
             dataGridView1.Columns["ID"].Visible = false;
             conn.Close();
             dataGridView1.CellClick += dataGridView1_CellClick;
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+           emploee();
 
         }
 
@@ -154,7 +159,80 @@ namespace SYBD_curs
 
         private void button8_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.CurrentRow == null ||
+                dataGridView1.CurrentRow.Cells["ID"].Value == null ||
+                dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
+            {
+                MessageBox.Show(
+                    "Выберите сотрудника",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Выберите сотрудника");
+                return;
+            }
+
+            int id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["ID"].Value);
+
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Изображения (*.jpg;*.png)|*.jpg;*.png";
+                ofd.Title = "Выберите фотографию сотрудника";
+
+                if (ofd.ShowDialog() != DialogResult.OK)
+                    return;
+
+                byte[] imageBytes = System.IO.File.ReadAllBytes(ofd.FileName);
+
+                try
+                {
+                    conn.Open();
+
+                    using (var cmd = new NpgsqlCommand(
+                        "UPDATE curse.\"Employee\" SET \"Foto_employee\" = @foto WHERE \"ID\" = @id",
+                        conn))
+                    {
+                        cmd.Parameters.AddWithValue("@foto", imageBytes);
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Обновляем PictureBox
+                    using (var ms = new System.IO.MemoryStream(imageBytes))
+                        pictureBox1.Image = Image.FromStream(ms);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при обновлении фото");
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            using (Form11 editForm = new Form11())
+            {
+                editForm.ShowDialog();
+            }
+            emploee();
+            this.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
 
         }
     }
 }
+
