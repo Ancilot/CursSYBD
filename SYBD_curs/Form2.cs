@@ -196,5 +196,26 @@ namespace SYBD_curs
             Form26 editForm = new Form26();
             editForm.ShowDialog();
         }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.CurrentRow == null ||
+             dataGridView.CurrentRow.Cells["Number_contract"].Value == null ||
+             dataGridView.CurrentRow.Cells["Number_contract"].Value == DBNull.Value)
+            {
+                MessageBox.Show(
+                    "Выберите договор для просмотра процесса выполнения",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            DataGridViewRow row = dataGridView.SelectedRows[0];
+
+            int id = Convert.ToInt32(row.Cells["Number_contract"].Value);
+            Form18 editForm = new Form18(id);
+            editForm.ShowDialog();
+        }
     }
 }

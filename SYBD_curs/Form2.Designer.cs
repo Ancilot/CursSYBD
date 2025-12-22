@@ -53,6 +53,8 @@
             this.button11 = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -297,11 +299,32 @@
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(448, 449);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(75, 23);
+            this.button13.TabIndex = 28;
+            this.button13.Text = "Открыть";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(445, 407);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(150, 39);
+            this.label12.TabIndex = 29;
+            this.label12.Text = "Выберите договор, чтобы\r\n просмотреть привязанные \r\nк нему смены:";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(772, 478);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.button11);
@@ -363,5 +386,7 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Label label12;
     }
 }

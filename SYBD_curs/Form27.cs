@@ -102,7 +102,7 @@ namespace SYBD_curs
                     "INSERT INTO curse.\"Client\" (\"INN\", \"Name_organization\", \"Surname\", " +
                     "\"Name\", \"Patronymic\", \"Address\", " +
                     " \"Number\", \"Account_number\",\"Email\") " +
-                    "VALUES (@inn, @name_organization, @surname, @name, @patronymic, @address, @number, @account_number, @email)",
+                    "VALUES (@inn, @name_organization, @surname, @name, @patronymic, @address, @number, @account_number, @email) RETURNING \"INN\"",
                     conn
                 );
 
@@ -123,7 +123,8 @@ namespace SYBD_curs
                 cmd.Parameters.AddWithValue("account_number", textBox7.Text.Trim());
                 cmd.Parameters.AddWithValue("email", textBox8.Text.Trim());
 
-                cmd.ExecuteNonQuery();
+    
+                string newINNId = (string)cmd.ExecuteScalar();
 
 
                 MessageBox.Show(
@@ -132,7 +133,8 @@ namespace SYBD_curs
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
-
+                this.Tag = newINNId;
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (PostgresException ex)
