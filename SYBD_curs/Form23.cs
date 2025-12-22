@@ -123,7 +123,7 @@ namespace SYBD_curs
           dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
             {
                 MessageBox.Show(
-                    "Выберите объект для редактирования",
+                    "Выберите объект для удаления",
                     "Ошибка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error

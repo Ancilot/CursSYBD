@@ -83,5 +83,10 @@ namespace SYBD_curs
             }
             conn.Close();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

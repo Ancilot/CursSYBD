@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Data;
+using System.Diagnostics.Contracts;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
@@ -31,24 +32,27 @@ namespace SYBD_curs
 
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void contract()
         {
             // Создадим новый набор данных
-           
+
             DataSet datasetmain = new DataSet();
-     
+
             // Открываем подключение
             conn.Open();
-          
+
             datasetmain.Clear();
-            
+
             NpgsqlCommand command = new NpgsqlCommand("SELECT " +
-            "c.\"ID\" AS Number_contract, " +
-            "concat(cl.\"Surname\", ' ', cl.\"Name\", ' ', cl.\"Patronymic\") AS client, " +
-            "o.\"Name\" AS object, " +
-            "c.\"Start_date\", " +
-            "c.\"Finish_date\", " +
-            "concat(e.\"Surname\", ' ', e.\"Name\", ' ', e.\"Patronymic\") AS manager " +
+            "c.\"ID\" AS \"Номер договора\", " +
+            "c.\"Client\", " +
+            "o.\"ID\" AS objID, " +
+            "c.\"Manager\", " +
+            "concat(cl.\"Surname\", ' ', cl.\"Name\", ' ', cl.\"Patronymic\") AS \"Клиент\", " +
+            "o.\"Name\" AS  \"Объект\", " +
+            "c.\"Start_date\" AS \"Дата начала\", " +
+            "c.\"Finish_date\" AS \"Дата конца\", " +
+            "concat(e.\"Surname\", ' ', e.\"Name\", ' ', e.\"Patronymic\") AS \"Менеджер\" " +
             "FROM curse.\"Contract\" c " +
             "JOIN curse.\"Client\" cl ON cl.\"INN\" = c.\"Client\" " +
             "JOIN curse.\"Object\" o ON o.\"ID\" = c.\"Object\" " +
@@ -62,11 +66,18 @@ namespace SYBD_curs
 
             // Связываем элемент DataGridView1 с набором данных
             dataGridView.DataSource = datasetmain;
-        
+
             dataGridView.DataMember = "\"Contract\"";
-            
+            dataGridView.Columns["Client"].Visible = false;
+            dataGridView.Columns["Manager"].Visible = false;
+            dataGridView.Columns["objID"].Visible = false;
+
             // Закрываем подключение
             conn.Close();
+        }
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            contract();
         }
 
         private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -134,8 +145,8 @@ namespace SYBD_curs
         private void button8_Click(object sender, EventArgs e)
         {
             if (dataGridView.CurrentRow == null ||
-             dataGridView.CurrentRow.Cells["Number_contract"].Value == null ||
-             dataGridView.CurrentRow.Cells["Number_contract"].Value == DBNull.Value)
+             dataGridView.CurrentRow.Cells["Номер договора"].Value == null ||
+             dataGridView.CurrentRow.Cells["Номер договора"].Value == DBNull.Value)
             {
                 MessageBox.Show(
                     "Выберите договор для просмотра напоминаний",
@@ -147,22 +158,27 @@ namespace SYBD_curs
             }
             DataGridViewRow row = dataGridView.SelectedRows[0];
 
-            int id = Convert.ToInt32(row.Cells["Number_contract"].Value);
+            int id = Convert.ToInt32(row.Cells["Номер договора"].Value);
             Form12 editForm = new Form12(id);
             editForm.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form15 editForm = new Form15();
-            editForm.ShowDialog();
+
+            using (Form15 editForm = new Form15())
+            {
+                editForm.ShowDialog();
+            }
+            contract();
         }
+           
 
         private void button9_Click(object sender, EventArgs e)
         {
             if (dataGridView.CurrentRow == null ||
-              dataGridView.CurrentRow.Cells["Number_contract"].Value == null ||
-              dataGridView.CurrentRow.Cells["Number_contract"].Value == DBNull.Value)
+              dataGridView.CurrentRow.Cells["Номер договора"].Value == null ||
+              dataGridView.CurrentRow.Cells["Номер договора"].Value == DBNull.Value)
             {
                 MessageBox.Show(
                     "Выберите договор для просмотра процесса выполнения",
@@ -174,7 +190,7 @@ namespace SYBD_curs
             }
             DataGridViewRow row = dataGridView.SelectedRows[0];
 
-            int id = Convert.ToInt32(row.Cells["Number_contract"].Value);
+            int id = Convert.ToInt32(row.Cells["Номер договора"].Value);
             Form16 editForm = new Form16(id);
             editForm.ShowDialog();
         }
@@ -200,8 +216,8 @@ namespace SYBD_curs
         private void button13_Click(object sender, EventArgs e)
         {
             if (dataGridView.CurrentRow == null ||
-             dataGridView.CurrentRow.Cells["Number_contract"].Value == null ||
-             dataGridView.CurrentRow.Cells["Number_contract"].Value == DBNull.Value)
+             dataGridView.CurrentRow.Cells["Номер договора"].Value == null ||
+             dataGridView.CurrentRow.Cells["Номер договора"].Value == DBNull.Value)
             {
                 MessageBox.Show(
                     "Выберите договор для просмотра процесса выполнения",
@@ -213,9 +229,86 @@ namespace SYBD_curs
             }
             DataGridViewRow row = dataGridView.SelectedRows[0];
 
-            int id = Convert.ToInt32(row.Cells["Number_contract"].Value);
+            int id = Convert.ToInt32(row.Cells["Номер договора"].Value);
             Form18 editForm = new Form18(id);
             editForm.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.CurrentRow == null ||
+            dataGridView.CurrentRow.Cells["Номер договора"].Value == null ||
+            dataGridView.CurrentRow.Cells["Номер договора"].Value == DBNull.Value)
+            {
+                MessageBox.Show(
+                    "Выберите договор для просмотра процесса выполнения",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            DataGridViewRow row = dataGridView.SelectedRows[0];
+
+            int id = Convert.ToInt32(row.Cells["Номер договора"].Value);
+            string client = row.Cells["Client"].Value.ToString();
+            int obj = Convert.ToInt32(row.Cells["objID"].Value);
+            DateTime data_start = Convert.ToDateTime(row.Cells["Дата начала"].Value);
+            DateTime data_finish = Convert.ToDateTime(row.Cells["Дата конца"].Value);
+            int meneger = Convert.ToInt32(row.Cells["Manager"].Value);
+
+            using (Form19 editForm = new Form19(id, client, obj, data_start, data_finish, meneger))
+            {
+                editForm.ShowDialog();
+            }
+            contract();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.CurrentRow == null ||
+           dataGridView.CurrentRow.Cells["Номер договора"].Value == null ||
+           dataGridView.CurrentRow.Cells["Номер договора"].Value == DBNull.Value)
+            {
+                MessageBox.Show(
+                    "Выберите договор для удаления",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            DataGridViewRow row = dataGridView.SelectedRows[0];
+            int id = Convert.ToInt32(row.Cells["Номер договора"].Value);
+
+            try
+            {
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(
+                     "DELETE FROM curse.\"Contract\" WHERE \"ID\" = @id",
+                    conn
+                );
+
+                cmd.Parameters.AddWithValue("id", id);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally { 
+                conn.Close();
+                contract();
+            }
+
         }
     }
 }

@@ -80,7 +80,7 @@ namespace SYBD_curs
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(
                     "INSERT INTO curse.\"Object\" (\"Name\", \"Address\", \"Object_type\") " +
-                    "VALUES (@name, @address, @type)",
+                    "VALUES (@name, @address, @type) RETURNING \"ID\"",
                     conn
                 );
 
@@ -88,8 +88,7 @@ namespace SYBD_curs
                 cmd.Parameters.AddWithValue("address", addressId);
                 cmd.Parameters.AddWithValue("type", textBox2.Text.Trim());
 
-                cmd.ExecuteNonQuery();
-
+                int newObjectId = (int)cmd.ExecuteScalar();
 
                 MessageBox.Show(
                     "Объект успешно добавлен",
@@ -97,7 +96,8 @@ namespace SYBD_curs
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
                 );
-
+                this.Tag = newObjectId;
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (PostgresException ex)

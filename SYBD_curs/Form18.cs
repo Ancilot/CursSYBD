@@ -92,7 +92,7 @@ namespace SYBD_curs
             dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
             {
                 MessageBox.Show(
-                    "Выберите смену для редактирования",
+                    "Выберите смену для удаления",
                     "Ошибка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -251,7 +251,6 @@ namespace SYBD_curs
                 comboBox1.DataSource = dt;
                 comboBox1.DisplayMember = "Name_smena";
                 comboBox1.ValueMember = "ID";
-                comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             }
             finally
             {
