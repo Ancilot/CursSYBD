@@ -206,7 +206,7 @@ namespace SYBD_curs
                     using (var ms = new System.IO.MemoryStream(imageBytes))
                         pictureBox1.Image = Image.FromStream(ms);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("Ошибка при обновлении фото");
                 }
@@ -231,7 +231,8 @@ namespace SYBD_curs
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            Form7 editForm = new Form7();
+            editForm.ShowDialog();
         }
     }
 }

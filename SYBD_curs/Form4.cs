@@ -90,10 +90,10 @@ namespace SYBD_curs
 
 
             // Создаем команду для вызова функции
-            using (var command = new NpgsqlCommand("SELECT * FROM curse.get_includents_info_by_status(@p_status)", conn))
+            using (var command = new NpgsqlCommand("SELECT * FROM curse.get_includents_info_by_status(@p_processing_status)", conn))
             {
                 // Добавляем параметр
-                command.Parameters.AddWithValue("p_status", selectedStatus);
+                command.Parameters.AddWithValue("p_processing_status", selectedStatus);
 
                 // Создаем адаптер и DataTable
                 using (var adapter = new NpgsqlDataAdapter(command))
