@@ -119,8 +119,10 @@ namespace SYBD_curs
 
                 NpgsqlDataAdapter da = new NpgsqlDataAdapter(command);
                 da.Fill(datasetSearch, "SearchResults");
-
                 dataGridView.DataSource = datasetSearch.Tables["SearchResults"];
+                dataGridView.Columns["Client"].Visible = false;
+                dataGridView.Columns["Manager"].Visible = false;
+                dataGridView.Columns["objID"].Visible = false;
             }
             catch (Exception ex)
             {

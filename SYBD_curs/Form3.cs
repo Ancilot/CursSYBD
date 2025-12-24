@@ -146,13 +146,15 @@ namespace SYBD_curs
 
                 dataGridView1.DataSource = datasetSearch.Tables["SearchResults"];
                 dataGridView1.Columns["ID"].Visible = false;
+                dataGridView1.Columns["Foto_employee"].Visible = false;
+                dataGridView1.Columns["Job_title"].Visible = false;
 
                 // Очищаем фотографию при поиске
                 pictureBox1.Image = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Произошла ошибка при поиске");
+                MessageBox.Show("Произошла ошибка при поиске:\n" + ex.Message);
             }
             finally
             {
