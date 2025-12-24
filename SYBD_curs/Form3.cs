@@ -252,7 +252,7 @@ namespace SYBD_curs
         {
             using (Form6 editForm = new Form6())
             {
-                editForm.ShowDialog();
+                editForm.ShowDialog(); 
             }
         }
 
