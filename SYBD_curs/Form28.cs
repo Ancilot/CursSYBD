@@ -1,12 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -16,7 +10,7 @@ namespace SYBD_curs
         private NpgsqlConnection conn;
         private int idAdres;
         private string oldInn;
-        public Form28(int addres, string inn, string organisation, string sername,string name, string patronomic, string number, string account_number, string email)
+        public Form28(int addres, string inn, string organisation, string sername, string name, string patronomic, string number, string account_number, string email)
         {
             InitializeComponent();
             string connString = "Host=localhost; Database=Ancilot; User Id=postgres; Password=1235;";
@@ -96,7 +90,7 @@ namespace SYBD_curs
             {
 
                 conn.Open();
-               
+
                 NpgsqlCommand cmd = new NpgsqlCommand(
                     "UPDATE curse.\"Client\" SET " +
                  "\"INN\" = @inn, " +
@@ -279,6 +273,6 @@ namespace SYBD_curs
             }
             finally { conn.Close(); }
         }
-    }    
+    }
 }
 

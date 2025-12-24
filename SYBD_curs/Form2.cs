@@ -1,9 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Data;
-using System.Diagnostics.Contracts;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace SYBD_curs
 {
@@ -172,7 +170,7 @@ namespace SYBD_curs
             }
             contract();
         }
-           
+
 
         private void button9_Click(object sender, EventArgs e)
         {
@@ -304,7 +302,8 @@ namespace SYBD_curs
                             MessageBoxIcon.Error
                         );
             }
-            finally { 
+            finally
+            {
                 conn.Close();
                 contract();
             }

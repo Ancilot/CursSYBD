@@ -1,14 +1,7 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SYBD_curs
 {
@@ -34,7 +27,7 @@ namespace SYBD_curs
 
         private void button1_Click(object sender, EventArgs e)
         {
-          
+
         }
         private void meneger()
         {
@@ -179,7 +172,7 @@ namespace SYBD_curs
                  "\"Finish_date\" = @finish_date, " +
                  "\"Manager\" = @meneger " +
                  "WHERE \"ID\" = @id",
-                  conn); 
+                  conn);
 
                 cmd.Parameters.AddWithValue("client", comboBox1.SelectedValue);
                 cmd.Parameters.AddWithValue("object", comboBox3.SelectedValue);
@@ -237,5 +230,5 @@ namespace SYBD_curs
             this.Show();
         }
     }
-    
+
 }

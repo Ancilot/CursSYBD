@@ -1,13 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -40,14 +33,14 @@ namespace SYBD_curs
 
             string serviceName = textBox1.Text.Trim();
 
-            
-                conn.Open();
 
-                using (var command = new NpgsqlCommand(
-                    "INSERT INTO curse.\"Services\" (\"Name\", \"Price\") VALUES (@name, @price)", conn))
-                {
-                    command.Parameters.AddWithValue("name", serviceName);
-                    command.Parameters.AddWithValue("price", price);
+            conn.Open();
+
+            using (var command = new NpgsqlCommand(
+                "INSERT INTO curse.\"Services\" (\"Name\", \"Price\") VALUES (@name, @price)", conn))
+            {
+                command.Parameters.AddWithValue("name", serviceName);
+                command.Parameters.AddWithValue("price", price);
 
                 try
                 {
@@ -92,8 +85,8 @@ namespace SYBD_curs
                         }
                     }
                 }
-                }
-
             }
+
+        }
     }
 }

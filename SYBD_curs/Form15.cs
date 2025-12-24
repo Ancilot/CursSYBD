@@ -1,14 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -78,7 +70,6 @@ namespace SYBD_curs
                 cmd.Parameters.AddWithValue("maneger", menegerId);
 
                 int newId = (int)cmd.ExecuteScalar();
-                MessageBox.Show("Новый контракт ID = " + newId);
                 Form17 editForm = new Form17(this, newId);
                 editForm.ShowDialog();
 
@@ -95,7 +86,8 @@ namespace SYBD_curs
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
-                    }return;
+                    }
+                    return;
                 }
 
                 if (ex.SqlState == "P0001")
@@ -136,7 +128,8 @@ namespace SYBD_curs
                 conn.Close();
             }
         }
-        private void objects(){
+        private void objects()
+        {
             conn.Open();
 
             try
@@ -162,7 +155,8 @@ namespace SYBD_curs
                 conn.Close();
             }
         }
-        private void meneger() {
+        private void meneger()
+        {
             conn.Open();
 
             try

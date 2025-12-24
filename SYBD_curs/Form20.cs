@@ -1,12 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -100,7 +94,7 @@ namespace SYBD_curs
             string City = row.Cells["Город"].Value.ToString();
             string Region = row.Cells["Регион"].Value.ToString();
             string Country = row.Cells["Страна"].Value.ToString();
-            using (Form22 editForm = new Form22(id,Home, Street, City, Region, Country))
+            using (Form22 editForm = new Form22(id, Home, Street, City, Region, Country))
             {
                 editForm.ShowDialog();
             }
@@ -162,7 +156,7 @@ namespace SYBD_curs
             }
             catch (PostgresException ex)
             {
-                if(ex.SqlState == "P0001")
+                if (ex.SqlState == "P0001")
                     MessageBox.Show(
                             ex.MessageText,
                             "Ошибка",
@@ -177,7 +171,7 @@ namespace SYBD_curs
 
             // Обновляем таблицу
             adress();
-            
+
         }
     }
 }

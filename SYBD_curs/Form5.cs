@@ -1,12 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -115,7 +109,7 @@ namespace SYBD_curs
 
             DataGridViewRow row = dataGridView1.CurrentRow;
 
-            
+
             // Получаем ID выбранной услуги
             int serviceId = Convert.ToInt32(
                 dataGridView1.SelectedRows[0].Cells["ID"].Value

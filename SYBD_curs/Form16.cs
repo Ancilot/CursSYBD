@@ -1,12 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -48,7 +42,7 @@ namespace SYBD_curs
              "FROM curse.\"Includents\" i " +
              "JOIN curse.\"Contract_graphik\" cg ON cg.\"ID\" = i.\"Contract_Smena\" " +
              "JOIN curse.graphik_smen gs ON gs.\"ID\" = cg.\"ID_graphik\" " +
-             "WHERE cg.\"ID_Contract\" = @contract_id " +         
+             "WHERE cg.\"ID_Contract\" = @contract_id " +
              "AND (i.\"Arhive\" IS NULL OR i.\"Arhive\" <> 'В архиве') " +
              "ORDER BY gs.\"Name_smena\"",
               conn

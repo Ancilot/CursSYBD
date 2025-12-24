@@ -1,13 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics.Contracts;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -63,7 +56,7 @@ namespace SYBD_curs
 
         private void button1_Click(object sender, EventArgs e)
         {
-            conn.Open( );  
+            conn.Open();
             NpgsqlCommand cmd = new NpgsqlCommand(
                    "DELETE FROM curse.\"Contract\" WHERE \"ID\" = @id",
                   conn
@@ -72,7 +65,7 @@ namespace SYBD_curs
             cmd.Parameters.AddWithValue("id", contractID);
 
             cmd.ExecuteNonQuery();
-            conn.Close( );
+            conn.Close();
             this.Close();
         }
 
@@ -119,13 +112,13 @@ namespace SYBD_curs
             // Если всё ок — закрываем формы
             this.Close();
             parentForm.Close();
-            
+
         }
 
 
         private void boxServis()
         {
-            
+
 
             try
             {
@@ -151,7 +144,8 @@ namespace SYBD_curs
                 conn.Close();
             }
         }
-        private void boxSmen() {
+        private void boxSmen()
+        {
             conn.Open();
 
             try
@@ -217,8 +211,9 @@ namespace SYBD_curs
                             MessageBoxIcon.Error
                         );
             }
-            finally { 
-                conn.Close(); 
+            finally
+            {
+                conn.Close();
                 boxServis();
                 servise_contract();
             }
@@ -395,7 +390,7 @@ namespace SYBD_curs
             }
             catch (PostgresException ex)
             {
-        
+
                 if (ex.SqlState == "P0001")
                     MessageBox.Show(
                             ex.MessageText,
@@ -404,7 +399,8 @@ namespace SYBD_curs
                             MessageBoxIcon.Error
                         );
             }
-            finally { 
+            finally
+            {
                 conn.Close();
                 boxSmen();
                 smen_contract();
@@ -451,11 +447,17 @@ namespace SYBD_curs
                             MessageBoxIcon.Error
                         );
             }
-            finally {
+            finally
+            {
                 conn.Close();
                 boxSmen();
                 smen_contract();
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

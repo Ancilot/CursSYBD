@@ -1,12 +1,5 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -35,7 +28,7 @@ namespace SYBD_curs
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
             try
             {
                 conn.Open();
@@ -48,23 +41,23 @@ namespace SYBD_curs
                  "\"Country\" = @country " +
                  "WHERE \"ID\" = @id",
                   conn);
-                
-                    command.Parameters.AddWithValue("id", addresID);
-                    command.Parameters.AddWithValue("home", textBox1.Text);
-                    command.Parameters.AddWithValue("street", textBox2.Text);
-                    command.Parameters.AddWithValue("city", textBox3.Text);
-                    command.Parameters.AddWithValue("region", textBox4.Text);
-                    command.Parameters.AddWithValue("country", textBox5.Text);
-                    command.ExecuteNonQuery();
 
-                    MessageBox.Show(
-                        "Адрес успешно обновлен",
-                        "Успех",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information
-                    );
-                    this.Close(); // закрываем форму после успешного добавления
-                
+                command.Parameters.AddWithValue("id", addresID);
+                command.Parameters.AddWithValue("home", textBox1.Text);
+                command.Parameters.AddWithValue("street", textBox2.Text);
+                command.Parameters.AddWithValue("city", textBox3.Text);
+                command.Parameters.AddWithValue("region", textBox4.Text);
+                command.Parameters.AddWithValue("country", textBox5.Text);
+                command.ExecuteNonQuery();
+
+                MessageBox.Show(
+                    "Адрес успешно обновлен",
+                    "Успех",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                this.Close(); // закрываем форму после успешного добавления
+
             }
             catch (PostgresException ex)
             {
@@ -120,7 +113,7 @@ namespace SYBD_curs
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
-                        
+
                         return;
                     }
                 }
@@ -135,10 +128,11 @@ namespace SYBD_curs
                     return;
                 }
             }
-            finally {
+            finally
+            {
                 conn.Close();
-            }
             }
         }
     }
+}
 

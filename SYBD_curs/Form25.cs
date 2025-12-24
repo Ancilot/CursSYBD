@@ -1,14 +1,7 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SYBD_curs
 {
@@ -31,7 +24,7 @@ namespace SYBD_curs
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close(); 
+            this.Close();
         }
 
         private void boxAdres()
@@ -145,5 +138,5 @@ namespace SYBD_curs
         }
     }
 }
-    
+
 

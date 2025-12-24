@@ -1,12 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -65,7 +59,7 @@ namespace SYBD_curs
             string name = row.Cells["Название"].Value.ToString();
             string type = row.Cells["Тип объекта"].Value.ToString();
 
-            using (Form25 editForm = new Form25(id,name, street, type))
+            using (Form25 editForm = new Form25(id, name, street, type))
             {
                 editForm.ShowDialog();
             }

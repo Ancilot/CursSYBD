@@ -1,12 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
@@ -184,12 +178,12 @@ namespace SYBD_curs
             string reminder = row.Cells["Напоминание"].Value.ToString();
             this.Hide();
 
-            using (Form14 editForm = new Form14(selectetReminderId,reminder))
+            using (Form14 editForm = new Form14(selectetReminderId, reminder))
             {
                 editForm.ShowDialog();
             }
             Remiminde();
-            selectetReminderId= -1;
+            selectetReminderId = -1;
             this.Show();
         }
     }

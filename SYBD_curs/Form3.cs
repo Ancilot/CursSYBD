@@ -16,7 +16,7 @@ namespace SYBD_curs
             InitializeComponent();
             string connString = "Host=localhost; Database=Ancilot; User Id=postgres; Password=1235;";
             conn = new NpgsqlConnection(connString);
-           
+
         }
 
 
@@ -42,13 +42,15 @@ namespace SYBD_curs
 
             NpgsqlCommand command = new NpgsqlCommand("SELECT " +
              "e.\"ID\"," +
-             "e.\"Surname\", " +
-             "e.\"Name\", " +
-             "e.\"Patronymic\", " +
-             "e.\"Date_receipt\", " +
-             "jt.\"Name\" AS job_title, " +
-             "e.\"Wages\", " +
-             "e.\"Education\" " +
+             "e.\"Foto_employee\"," +
+             "e.\"Job_title\"," +
+             "e.\"Surname\" AS \"Фамилия\", " +
+             "e.\"Name\" AS \"Имя\", " +
+             "e.\"Patronymic\" AS \"Отчество\", " +
+             "e.\"Date_receipt\"AS \"Дата поступления\", " +
+             "jt.\"Name\" AS \"Должность\", " +
+             "e.\"Wages\"AS \"Зарплата\", " +
+             "e.\"Education\" AS \"Образование\"" +
              "FROM curse.\"Employee\" e " +
              "JOIN curse.\"Job_title\" jt ON jt.\"ID\" = e.\"Job_title\"", conn);
 
@@ -63,13 +65,15 @@ namespace SYBD_curs
             dataGridView1.DataMember = "\"Employee\"";
             // Закрываем подключение
             dataGridView1.Columns["ID"].Visible = false;
+            dataGridView1.Columns["Foto_employee"].Visible = false;
+            dataGridView1.Columns["Job_title"].Visible = false;
             conn.Close();
             dataGridView1.CellClick += dataGridView1_CellClick;
         }
 
         private void Form3_Load(object sender, EventArgs e)
         {
-           emploee();
+            emploee();
 
         }
 
@@ -233,6 +237,120 @@ namespace SYBD_curs
         {
             Form7 editForm = new Form7();
             editForm.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (Form31 editForm = new Form31())
+            {
+                editForm.ShowDialog();
+            }
+            emploee();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            using (Form6 editForm = new Form6())
+            {
+                editForm.ShowDialog();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show(
+                    "Выберите сотрудника",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+
+            DataGridViewRow row = dataGridView1.CurrentRow;
+
+            int id = Convert.ToInt32(row.Cells["ID"].Value);
+            string surname = row.Cells["Фамилия"].Value.ToString();
+            string name = row.Cells["Имя"].Value.ToString();
+            string patronymic = row.Cells["Отчество"].Value.ToString();
+            DateTime dateStart = Convert.ToDateTime(row.Cells["Дата поступления"].Value);
+            int jobId = Convert.ToInt32(row.Cells["Job_title"].Value); 
+            decimal wages = Convert.ToDecimal(row.Cells["Зарплата"].Value);
+            string education = row.Cells["Образование"].Value.ToString();
+            byte[] photoBytes = null;
+
+            if (row.Cells["Foto_employee"].Value != DBNull.Value)
+            {
+                photoBytes = (byte[])row.Cells["Foto_employee"].Value;
+            }
+
+
+            using (Form33 editForm = new Form33(
+                id, surname, name, patronymic, dateStart, jobId, wages, education, photoBytes))
+            {
+                editForm.ShowDialog();
+            }
+
+            emploee();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null ||
+           dataGridView1.CurrentRow.Cells["ID"].Value == null ||
+           dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
+            {
+                MessageBox.Show(
+                    "Выберите сотрудника для удаления",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            // Подтверждение удаления
+            DialogResult result = MessageBox.Show(
+                "Вы уверены, что хотите удалить выбранного сотрудника?",
+                "Подтверждение",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+            DataGridViewRow row = dataGridView1.SelectedRows[0];
+            int id = Convert.ToInt32(row.Cells["ID"].Value);
+
+            try
+            {
+                conn.Open();
+
+                NpgsqlCommand cmd = new NpgsqlCommand(
+                     "DELETE FROM curse.\"Employee\" WHERE \"ID\" = @id",
+                    conn
+                );
+
+                cmd.Parameters.AddWithValue("id", id);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally
+            {
+                conn.Close();
+                emploee();
+            }
         }
     }
 }

@@ -1,18 +1,10 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
 {
-    
+
     public partial class Form10 : Form
     {
         private NpgsqlConnection conn;
@@ -82,7 +74,7 @@ namespace SYBD_curs
                             "Ошибка",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
-                        ); 
+                        );
                         return;
                     }
                 }
@@ -91,6 +83,11 @@ namespace SYBD_curs
             {
                 conn.Close();
             }
+        }
+
+        private void Form10_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
