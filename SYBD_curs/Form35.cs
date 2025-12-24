@@ -31,7 +31,7 @@ namespace SYBD_curs
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(
                     "INSERT INTO curse.\"graphik_smen\" (\"Date_time_start\", \"Date_time_finish\", \"Name_smena\") " +
-                    "VALUES (@date_time_start, @date_time_finish, @name_smena) RETURNING \"ID\"",
+                    "VALUES (@date_time_start, @date_time_finish, @name_smena)",
                     conn
                 );
 

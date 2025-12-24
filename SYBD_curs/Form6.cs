@@ -20,7 +20,25 @@ namespace SYBD_curs
 
         private void button5_Click(object sender, System.EventArgs e)
         {
+            if (dataGridView1.CurrentRow == null ||
+           dataGridView1.CurrentRow.Cells["ID"].Value == null ||
+           dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
+            {
+                MessageBox.Show(
+                    "Выберите смену для просмотра",
+                    "Ошибка",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return;
+            }
+            DataGridViewRow row = dataGridView1.SelectedRows[0];
 
+            int id = Convert.ToInt32(row.Cells["ID"].Value);
+            using (Form36 editForm = new Form36(id))
+            {
+                editForm.ShowDialog();
+            }
         }
 
         private void smen()

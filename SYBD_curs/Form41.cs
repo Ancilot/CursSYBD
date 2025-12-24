@@ -1,49 +1,59 @@
 ﻿using Npgsql;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SYBD_curs
 {
-    public partial class Form37 : Form
+    public partial class Form41 : Form
     {
         private NpgsqlConnection conn;
-        private int graphID;
-        public Form37(int id, string name, DateTime start, DateTime finish)
+        private int incID;
+        public Form41(int id, string inc, string mera, DateTime data)
         {
             InitializeComponent();
             string connString = "Host=localhost; Database=Ancilot; User Id=postgres; Password=1235;";
             conn = new NpgsqlConnection(connString);
-            int graphID = id;
-            dateTimePicker1.Value = start;
-            dateTimePicker1.Value = finish;
-            textBox1.Text = name;
-            graphID = id;
+            incID = id;
+            textBox1.Text = inc;
+            textBox2.Text = mera;
+            dateTimePicker1.Value = data;
         }
 
-        private void button2_Click(object sender, System.EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
             DateTime startDate = dateTimePicker1.Value;
-            DateTime finishDate = dateTimePicker2.Value;
             try
             {
 
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(
-                     "UPDATE curse.\"graphik_smen\" SET " +
-                     "\"Date_time_start\" = @surname, " +
-                     "\"Date_time_finish\" = @surname, " +
-                     "\"Name_smena\" = @surname " +
-                     "WHERE \"ID\" = @id",
+                    "UPDATE curse.\"Includents\" SET " +
+                    "\"Incedent\" = @incedent, " +
+                    "\"Data_Time\" = @data_time, " +
+                    "\"Measures_taken\" = @measures_taken, " +
+                    "WHERE \"ID\" = @id",
                     conn
                 );
-                cmd.Parameters.AddWithValue("id", graphID);
-                cmd.Parameters.AddWithValue("date_time_start", startDate);
-                cmd.Parameters.AddWithValue("date_time_finish", finishDate);
-                cmd.Parameters.AddWithValue("name_smena", textBox1.Text);
+                cmd.Parameters.AddWithValue("ID", incID);
+                cmd.Parameters.AddWithValue("incedent", textBox1.Text);
+                cmd.Parameters.AddWithValue("data_time", startDate);
+                cmd.Parameters.AddWithValue("measures_taken", textBox2.Text);
                 cmd.ExecuteNonQuery();
 
                 MessageBox.Show(
-                    "Смена успешно обновлена",
+                    "Происшествие успешно обновлено",
                     "Успех",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information
@@ -54,30 +64,30 @@ namespace SYBD_curs
             {
                 if (ex.SqlState == "23514") // CHECK
                 {
-                    if (ex.ConstraintName == "graphik_smen_dates_check")
+                    if (ex.ConstraintName == "includents_all_or_none")
                     {
                         MessageBox.Show(
-                            "Дата начала не может быть больше даты конца",
+                            "Происшествие должно быть заполнено полностью: описание, дата и принятые меры.",
                             "Ошибка",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
                         return;
                     }
-                    if (ex.ConstraintName == "graphik_smen_status_date_logic")
+                    if (ex.ConstraintName == "includents_incedent_no_whitespace")
                     {
                         MessageBox.Show(
-                            "Статус смены не соответствует датам",
+                            "Поле \"происшествие\" должно быть заполненно!",
                             "Ошибка",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
                         );
                         return;
                     }
-                    if (ex.ConstraintName == "graphik_smen_name_smena_no_whitespace")
+                    if (ex.ConstraintName == "includents_measures_taken_no_whitespace")
                     {
                         MessageBox.Show(
-                            "не заполнено поле названия смены",
+                            "Поле \"принятые меры\" должно быть заполненно!",
                             "Ошибка",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error
@@ -95,16 +105,5 @@ namespace SYBD_curs
             }
             finally { conn.Close(); }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Form37_Load(object sender, EventArgs e)
-        {
-
-        }
     }
-    
 }
