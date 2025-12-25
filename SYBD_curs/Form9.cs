@@ -52,7 +52,6 @@ namespace SYBD_curs
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
-                    conn.Close();
                     this.Close(); // закрываем форму после успешного добавления
                 }
                 catch (PostgresException ex)
@@ -68,7 +67,6 @@ namespace SYBD_curs
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error
                             );
-                            conn.Close();
                             return;
                         }
 
@@ -80,12 +78,17 @@ namespace SYBD_curs
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error
                             );
-                            conn.Close();
                             return;
                         }
                     }
                 }
+                finally { conn.Close(); }
             }
+
+        }
+
+        private void Form9_Load(object sender, EventArgs e)
+        {
 
         }
     }

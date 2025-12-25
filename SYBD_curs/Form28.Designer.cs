@@ -276,8 +276,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
+            this.MaximizeBox = false;
             this.Name = "Form28";
-            this.Text = "Form28";
+            this.Text = "Обновление";
             this.Load += new System.EventHandler(this.Form28_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

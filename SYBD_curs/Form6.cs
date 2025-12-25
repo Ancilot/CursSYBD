@@ -78,10 +78,74 @@ namespace SYBD_curs
             // Закрываем подключение
             conn.Close();
         }
+        private void upDateStatusSmen()
+        {
+            // Создадим новый набор данных
+
+            DataSet datasetmain = new DataSet();
+
+            try
+            { // Открываем подключение
+                conn.Open();
+
+                datasetmain.Clear();
+
+                NpgsqlCommand command = new NpgsqlCommand("Call curse.update_graphik_status()",
+                conn);
+                command.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally
+            {  // Закрываем подключение
+                conn.Close();
+            }
+
+        }
+        private void upDateStatusInc()
+        {
+            // Создадим новый набор данных
+
+            DataSet datasetmain = new DataSet();
+
+            try
+            { // Открываем подключение
+                conn.Open();
+
+                datasetmain.Clear();
+
+                NpgsqlCommand command = new NpgsqlCommand("Call curse.update_includents_status()",
+                conn);
+                command.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally
+            {  // Закрываем подключение
+                conn.Close();
+            }
+        }
         private void Form6_Load(object sender, System.EventArgs e)
         {
+            upDateStatusSmen();
+            upDateStatusInc();
             smen();
-
         }
 
         private void button4_Click(object sender, System.EventArgs e)
@@ -190,7 +254,7 @@ namespace SYBD_curs
             dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
             {
                 MessageBox.Show(
-                    "Выберите смену для обновления",
+                    "Выберите смену для просмотра",
                     "Ошибка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error

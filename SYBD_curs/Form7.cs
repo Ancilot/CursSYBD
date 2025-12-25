@@ -91,7 +91,6 @@ namespace SYBD_curs
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
-                    conn.Close();
                     return;
                 }
                 dataGridView1.DataSource = dt;
@@ -138,7 +137,6 @@ namespace SYBD_curs
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
-                    conn.Close();
                     return;
                 }
                 dataGridView1.DataSource = dt;
@@ -172,7 +170,6 @@ namespace SYBD_curs
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
-                    conn.Close();
                     return;
                 }
                 dataGridView1.DataSource = dt;

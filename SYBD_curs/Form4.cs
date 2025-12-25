@@ -184,14 +184,10 @@ namespace SYBD_curs
 
                     // Получаем результат из выходного параметра
                     decimal totalRevenue = Convert.ToDecimal(outputParam.Value);
-                    conn.Close();
                 }
-                catch (Exception ex)
+                finally
                 {
-                    {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        conn.Close();
-                    }
+                    conn.Close();
                 }
             }
         }

@@ -81,8 +81,9 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
+            this.MaximizeBox = false;
             this.Name = "Form13";
-            this.Text = "Form13";
+            this.Text = "Создание напоминания";
             this.ResumeLayout(false);
             this.PerformLayout();
 

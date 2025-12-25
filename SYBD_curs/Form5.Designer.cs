@@ -158,8 +158,9 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "Form5";
-            this.Text = "Form5";
+            this.Text = "Услуги";
             this.Load += new System.EventHandler(this.Form5_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

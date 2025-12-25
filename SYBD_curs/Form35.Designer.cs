@@ -148,8 +148,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "Form35";
-            this.Text = "Form35";
+            this.Text = "Создание смены";
             this.Load += new System.EventHandler(this.Form35_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

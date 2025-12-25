@@ -270,8 +270,9 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "Form15";
-            this.Text = "Form15";
+            this.Text = "Добавление договора";
             this.Load += new System.EventHandler(this.Form15_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

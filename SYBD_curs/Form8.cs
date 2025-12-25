@@ -151,15 +151,15 @@ namespace SYBD_curs
 
                 selectedServiceContractId = -1;
             }
-            catch (Exception ex)
+            catch (PostgresException ex)
             {
-                MessageBox.Show(
-                   "Ошибка при обновлении:\n" + ex.Message,
-                   "Ошибка",
-                   MessageBoxButtons.OK,
-                   MessageBoxIcon.Error
-               );
-
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
             }
             finally
             {
@@ -236,10 +236,11 @@ namespace SYBD_curs
             finally
             {
                 conn.Close();
+
+                // Обновляем таблицу
+                contract_servis();
             }
 
-            // Обновляем таблицу
-            contract_servis();
         }
     }
 }

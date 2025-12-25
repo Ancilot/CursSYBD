@@ -105,5 +105,10 @@ namespace SYBD_curs
             }
             finally { conn.Close(); }
         }
+
+        private void Form41_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

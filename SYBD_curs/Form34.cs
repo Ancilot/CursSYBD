@@ -42,8 +42,18 @@ namespace SYBD_curs
                 DataTable dt = new DataTable();
                 dt.Load(cmd.ExecuteReader());
 
+                // Добавляем колонку с объединённым текстом
+                dt.Columns.Add("DisplayText", typeof(string));
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    DateTime start = (DateTime)row["Date_time_start"];
+                    DateTime end = (DateTime)row["Date_time_finish"];
+                    row["DisplayText"] = $"{row["Name_smena"]} ({start:dd.MM.yyyy HH:mm} - {end:dd.MM.yyyy HH:mm})";
+                }
+
                 comboBox1.DataSource = dt;
-                comboBox1.DisplayMember = "Name_smena";
+                comboBox1.DisplayMember = "DisplayText";
                 comboBox1.ValueMember = "ID";
             }
             finally
@@ -384,7 +394,7 @@ namespace SYBD_curs
             dataGridView2.CurrentRow.Cells["ID"].Value == DBNull.Value)
             {
                 MessageBox.Show(
-                    "Выберите лицензию для удаления",
+                    "Выберите смену для удаления",
                     "Ошибка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error

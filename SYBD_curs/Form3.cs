@@ -70,10 +70,106 @@ namespace SYBD_curs
             conn.Close();
             dataGridView1.CellClick += dataGridView1_CellClick;
         }
+        private void upDateStatusSmen()
+        {
+            // Создадим новый набор данных
 
+            DataSet datasetmain = new DataSet();
+
+            try
+            { // Открываем подключение
+                conn.Open();
+
+                datasetmain.Clear();
+
+                NpgsqlCommand command = new NpgsqlCommand("Call curse.update_graphik_status()",
+                conn);
+                command.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally
+            {  // Закрываем подключение
+                conn.Close();
+            }
+
+        }
+        private void upDateStatusInc()
+        {
+            // Создадим новый набор данных
+
+            DataSet datasetmain = new DataSet();
+
+            try
+            { // Открываем подключение
+                conn.Open();
+
+                datasetmain.Clear();
+
+                NpgsqlCommand command = new NpgsqlCommand("Call curse.update_includents_status()",
+                conn);
+                command.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally
+            {  // Закрываем подключение
+                conn.Close();
+            }
+        }
+        private void upDateStatusLic()
+        {
+            // Создадим новый набор данных
+
+            DataSet datasetmain = new DataSet();
+
+            try
+            { // Открываем подключение
+                conn.Open();
+
+                datasetmain.Clear();
+
+                NpgsqlCommand command = new NpgsqlCommand("Call update_license_status()",
+                conn);
+                command.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally
+            {  // Закрываем подключение
+                conn.Close();
+            }
+        }
         private void Form3_Load(object sender, EventArgs e)
         {
             emploee();
+            upDateStatusSmen();
+            upDateStatusLic();
+            upDateStatusInc();
 
         }
 
@@ -158,7 +254,6 @@ namespace SYBD_curs
             }
             finally
             {
-                if (conn.State == ConnectionState.Open)
                     conn.Close();
             }
         }
@@ -175,11 +270,6 @@ namespace SYBD_curs
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
-                return;
-            }
-            if (dataGridView1.CurrentRow == null)
-            {
-                MessageBox.Show("Выберите сотрудника");
                 return;
             }
 
@@ -248,6 +338,7 @@ namespace SYBD_curs
                 editForm.ShowDialog();
             }
             emploee();
+            upDateStatusLic();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -296,6 +387,7 @@ namespace SYBD_curs
             }
 
             emploee();
+            upDateStatusLic();
         }
 
         private void button4_Click(object sender, EventArgs e)

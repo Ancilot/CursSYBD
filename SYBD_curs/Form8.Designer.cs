@@ -104,6 +104,7 @@
             // 
             // comboBox4
             // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Location = new System.Drawing.Point(12, 230);
             this.comboBox4.Name = "comboBox4";
@@ -143,8 +144,9 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "Form8";
-            this.Text = "Form8";
+            this.Text = "Привязанные услуги";
             this.Load += new System.EventHandler(this.Form8_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

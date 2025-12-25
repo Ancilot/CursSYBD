@@ -281,8 +281,9 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
+            this.MaximizeBox = false;
             this.Name = "Form19";
-            this.Text = "Form19";
+            this.Text = "Обновление";
             this.Load += new System.EventHandler(this.Form19_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

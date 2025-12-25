@@ -144,14 +144,15 @@ namespace SYBD_curs
                     MessageBoxIcon.Information
                 );
             }
-            catch (Exception ex)
+            catch (PostgresException ex)
             {
-                MessageBox.Show(
-                    "Ошибка при удалении услуги:\n" + ex.Message,
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
             }
             finally
             {

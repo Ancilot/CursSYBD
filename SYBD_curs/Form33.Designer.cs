@@ -285,8 +285,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "Form33";
-            this.Text = "Form33";
+            this.Text = "Обновление";
             this.Load += new System.EventHandler(this.Form33_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

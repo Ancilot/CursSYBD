@@ -29,7 +29,68 @@ namespace SYBD_curs
         {
 
         }
+        private void upDateStatusSmen()
+        {
+            // Создадим новый набор данных
 
+            DataSet datasetmain = new DataSet();
+
+            try
+            { // Открываем подключение
+                conn.Open();
+
+                datasetmain.Clear();
+
+                NpgsqlCommand command = new NpgsqlCommand("Call curse.update_graphik_status()",
+                conn);
+                command.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally
+            {  // Закрываем подключение
+                conn.Close();
+            }
+
+        }
+        private void upDateStatusInc() {
+            // Создадим новый набор данных
+
+            DataSet datasetmain = new DataSet();
+
+            try
+            { // Открываем подключение
+                conn.Open();
+
+                datasetmain.Clear();
+
+                NpgsqlCommand command = new NpgsqlCommand("Call curse.update_includents_status()",
+                conn);
+                command.ExecuteNonQuery();
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.SqlState == "P0001")
+                    MessageBox.Show(
+                            ex.MessageText,
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+            }
+            finally
+            {  // Закрываем подключение
+                conn.Close();
+            }
+        }
         private void contract()
         {
             // Создадим новый набор данных
@@ -76,6 +137,8 @@ namespace SYBD_curs
         private void Form2_Load(object sender, EventArgs e)
         {
             contract();
+            upDateStatusInc();
+            upDateStatusSmen();
         }
 
         private void dataGridView4_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -124,10 +187,14 @@ namespace SYBD_curs
                 dataGridView.Columns["Manager"].Visible = false;
                 dataGridView.Columns["objID"].Visible = false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Ошибка при поиске: " + ex.Message,
-                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                   "Произошла ошибка при поиске",
+                   "Ошибка",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Error
+               );
             }
             finally
             {
@@ -220,7 +287,7 @@ namespace SYBD_curs
              dataGridView.CurrentRow.Cells["Номер договора"].Value == DBNull.Value)
             {
                 MessageBox.Show(
-                    "Выберите договор для просмотра процесса выполнения",
+                    "Выберите договор для просмотра привязанных смен",
                     "Ошибка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -280,6 +347,17 @@ namespace SYBD_curs
             }
             DataGridViewRow row = dataGridView.SelectedRows[0];
             int id = Convert.ToInt32(row.Cells["Номер договора"].Value);
+
+            // Подтверждение удаления
+            DialogResult result = MessageBox.Show(
+                "Вы уверены, что хотите удалить выбранный договор?",
+                "Подтверждение",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result != DialogResult.Yes)
+                return;
 
             try
             {

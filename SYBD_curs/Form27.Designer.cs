@@ -276,8 +276,9 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
+            this.MaximizeBox = false;
             this.Name = "Form27";
-            this.Text = "Form27";
+            this.Text = "Добавление";
             this.Load += new System.EventHandler(this.Form27_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -78,10 +78,10 @@ namespace SYBD_curs
                 dataGridView1.DataMember = "Reminder";
                 dataGridView1.Columns["ID"].Visible = false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show(
-                    "Ошибка загрузки напоминаний: " + ex.Message,
+                    "Ошибка загрузки напоминаний ",
                     "Ошибка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -89,7 +89,6 @@ namespace SYBD_curs
             }
             finally
             {
-                if (conn.State == ConnectionState.Open)
                     conn.Close();
             }
         }
