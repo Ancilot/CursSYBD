@@ -58,12 +58,12 @@ namespace SYBD_curs
             da.Fill(datasetmain, "\"Services\"");
 
             // Связываем элемент DataGridView1 с набором данных
-            dataGridView1.DataSource = datasetmain;
+            dataGridView.DataSource = datasetmain;
 
-            dataGridView1.DataMember = "\"Services\"";
-            dataGridView1.Columns["ID"].Visible = false;
-            dataGridView1.ClearSelection();
-            dataGridView1.CurrentCell = null;
+            dataGridView.DataMember = "\"Services\"";
+            dataGridView.Columns["ID"].Visible = false;
+            dataGridView.ClearSelection();
+            dataGridView.CurrentCell = null;
             // Закрываем подключение
             conn.Close();
 
@@ -94,9 +94,9 @@ namespace SYBD_curs
         private void button4_Click(object sender, EventArgs e)
         {
 
-            if (dataGridView1.CurrentRow == null ||
-             dataGridView1.CurrentRow.Cells["ID"].Value == null ||
-             dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
+            if (dataGridView.CurrentRow == null ||
+             dataGridView.CurrentRow.Cells["ID"].Value == null ||
+             dataGridView.CurrentRow.Cells["ID"].Value == DBNull.Value)
             {
                 MessageBox.Show(
                     "Выберите услугу для удаления",
@@ -107,12 +107,12 @@ namespace SYBD_curs
                 return;
             }
 
-            DataGridViewRow row = dataGridView1.CurrentRow;
+            DataGridViewRow row = dataGridView.CurrentRow;
 
 
             // Получаем ID выбранной услуги
             int serviceId = Convert.ToInt32(
-                dataGridView1.SelectedRows[0].Cells["ID"].Value
+                dataGridView.SelectedRows[0].Cells["ID"].Value
             );
 
             // Подтверждение удаления
@@ -165,9 +165,9 @@ namespace SYBD_curs
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentRow == null ||
-             dataGridView1.CurrentRow.Cells["ID"].Value == null ||
-             dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
+            if (dataGridView.CurrentRow == null ||
+             dataGridView.CurrentRow.Cells["ID"].Value == null ||
+             dataGridView.CurrentRow.Cells["ID"].Value == DBNull.Value)
             {
                 MessageBox.Show(
                     "Выберите услугу для редактирования",
@@ -177,7 +177,7 @@ namespace SYBD_curs
                 );
                 return;
             }
-            DataGridViewRow row = dataGridView1.SelectedRows[0];
+            DataGridViewRow row = dataGridView.SelectedRows[0];
 
             int id = Convert.ToInt32(row.Cells["ID"].Value);
             string name = row.Cells["Услуга"].Value.ToString();

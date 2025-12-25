@@ -108,7 +108,7 @@ namespace SYBD_curs
            dataGridView1.CurrentRow.Cells["ID"].Value == DBNull.Value)
             {
                 MessageBox.Show(
-                    "Выберите смену для обновления",
+                    "Выберите происшествие для обновления",
                     "Ошибка",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error

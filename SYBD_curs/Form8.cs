@@ -14,13 +14,13 @@ namespace SYBD_curs
             InitializeComponent();
             string connString = "Host=localhost; Database=Ancilot; User Id=postgres; Password=1235;";
             conn = new NpgsqlConnection(connString);
-            dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView.CellClick += dataGridView1_CellClick;
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
-            var cellValue = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value;
+            var cellValue = dataGridView.Rows[e.RowIndex].Cells["ID"].Value;
 
             if (cellValue == null || cellValue == DBNull.Value)
                 return;
@@ -85,12 +85,12 @@ namespace SYBD_curs
             da.Fill(datasetmain, "\"Services_Contract\"");
 
             // Связываем элемент DataGridView1 с набором данных
-            dataGridView1.DataSource = datasetmain;
+            dataGridView.DataSource = datasetmain;
 
-            dataGridView1.DataMember = "\"Services_Contract\"";
-            dataGridView1.Columns["ID"].Visible = false;
-            dataGridView1.ClearSelection();
-            dataGridView1.CurrentCell = null;
+            dataGridView.DataMember = "\"Services_Contract\"";
+            dataGridView.Columns["ID"].Visible = false;
+            dataGridView.ClearSelection();
+            dataGridView.CurrentCell = null;
 
 
             // Закрываем подключение
@@ -193,7 +193,7 @@ namespace SYBD_curs
                 "SELECT COUNT(*) FROM curse.\"Services_Contract\" WHERE \"ID_Contract\" = @id_contract",
                conn))
                 {
-                    DataGridViewRow row = dataGridView1.SelectedRows[0];
+                    DataGridViewRow row = dataGridView.SelectedRows[0];
                     int id = Convert.ToInt32(row.Cells["Номер договора"].Value);
                     checkCmd.Parameters.AddWithValue("@id_contract", id);
                     int count = Convert.ToInt32(checkCmd.ExecuteScalar());

@@ -58,6 +58,17 @@ namespace SYBD_curs
             }
             catch (PostgresException ex)
             {
+                // Превышение длины строки
+                if (ex.SqlState == "22001")
+                {
+                    MessageBox.Show(
+                        "Превышено допустимое количество символов в строке",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
                 if (ex.SqlState == "23514") // CHECK
                 {
                     if (ex.ConstraintName == "includents_all_or_none")

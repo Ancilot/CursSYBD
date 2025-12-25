@@ -260,6 +260,29 @@ namespace SYBD_curs
                     }
 
                 }
+                // Превышение длины строки
+                if (ex.SqlState == "22001")
+                {
+                    MessageBox.Show(
+                        "Превышено допустимое количество символов в строке",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
+
+                // Превышение допустимого диапазона числа
+                if (ex.SqlState == "22003")
+                {
+                    MessageBox.Show(
+                        "Значение числа вне допустимого диапазона",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
+                }
                 if (ex.SqlState == "P0001")
                 {
                     MessageBox.Show(

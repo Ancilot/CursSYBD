@@ -155,7 +155,7 @@ namespace SYBD_curs
                 cmd.ExecuteNonQuery();
 
                 MessageBox.Show(
-                    "Адрес успешно удален.",
+                    "Объект успешно удален.",
                     "Успех",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information

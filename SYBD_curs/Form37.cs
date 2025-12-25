@@ -13,9 +13,8 @@ namespace SYBD_curs
             InitializeComponent();
             string connString = "Host=localhost; Database=Ancilot; User Id=postgres; Password=1235;";
             conn = new NpgsqlConnection(connString);
-            int graphID = id;
             dateTimePicker1.Value = start;
-            dateTimePicker1.Value = finish;
+            dateTimePicker2.Value = finish;
             textBox1.Text = name;
             graphID = id;
         }
@@ -30,9 +29,9 @@ namespace SYBD_curs
                 conn.Open();
                 NpgsqlCommand cmd = new NpgsqlCommand(
                      "UPDATE curse.\"graphik_smen\" SET " +
-                     "\"Date_time_start\" = @surname, " +
-                     "\"Date_time_finish\" = @surname, " +
-                     "\"Name_smena\" = @surname " +
+                     "\"Date_time_start\" = @date_time_start, " +
+                     "\"Date_time_finish\" = @date_time_finish, " +
+                     "\"Name_smena\" = @name_smena " +
                      "WHERE \"ID\" = @id",
                     conn
                 );
@@ -84,6 +83,17 @@ namespace SYBD_curs
                         );
                         return;
                     }
+                }
+                // Превышение длины строки
+                if (ex.SqlState == "22001")
+                {
+                    MessageBox.Show(
+                        "Превышено допустимое количество символов в строке",
+                        "Ошибка",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                    return;
                 }
                 if (ex.SqlState == "P0001")
                     MessageBox.Show(
