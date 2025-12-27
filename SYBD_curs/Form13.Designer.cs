@@ -84,6 +84,7 @@
             this.MaximizeBox = false;
             this.Name = "Form13";
             this.Text = "Создание напоминания";
+            this.Load += new System.EventHandler(this.Form13_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

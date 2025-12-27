@@ -174,6 +174,16 @@ namespace SYBD_curs
                         );
                         return;
                     }
+                    if (ex.ConstraintName == "client_email_no_cyrillic")
+                    {
+                        MessageBox.Show(
+                            "Почта не может содеражть кирилицу",
+                            "Ошибка",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                        return;
+                    }
                     if (ex.ConstraintName == "client_name_organization_no_whitespace")
                     {
                         MessageBox.Show(

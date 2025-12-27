@@ -79,5 +79,10 @@ namespace SYBD_curs
 
             }
         }
+
+        private void Form13_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
